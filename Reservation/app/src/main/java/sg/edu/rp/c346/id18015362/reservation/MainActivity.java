@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox smokingCheckBox;
     DatePicker dp;
     TimePicker tp;
+    boolean error = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,19 @@ public class MainActivity extends AppCompatActivity {
                 String name = nameEdit.getText().toString();
                 String mobile = mobileEdit.getText().toString();
                 String pax = paxEdit.getText().toString();
+                String message = "";
+
+                if(name.length() == 0) {
+                    message = "Please fill in your Name";
+                    error = true;
+                } else if(mobile.length() == 0){
+                    message = "Please fill in your Phone Number";
+                    error = true;
+                } else if(pax.length() == 0){
+                    message = "Please enter the number of pax";
+                    error = true;
+                }
+
                 String smokeArea = "";
                 int month = dp.getMonth() + 1;
                 if(smokingCheckBox.isChecked()) {
@@ -49,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
                     smokeArea = "Located at non-Smoking Area";
                 }
 
-
-                String message = String.format("Reservation registered on %s/%s/%s %s:%s for %s pax under %s (MOBILE:%s) %s ",dp.getDayOfMonth(),month,dp.getYear(),tp.getCurrentHour(),tp.getCurrentMinute(),pax,name,mobile,smokeArea);
+                if(error == false) {
+                    message = String.format("Reservation registered on %s/%s/%s %s:%s for %s pax under %s (MOBILE:%s) %s ", dp.getDayOfMonth(), month, dp.getYear(), tp.getCurrentHour(), tp.getCurrentMinute(), pax, name, mobile, smokeArea);
+                }
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_LONG;
 
@@ -66,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 mobileEdit.setText("");
                 paxEdit.setText("");
                 smokingCheckBox.setChecked(false);
+                error = false;
 
                 dp.updateDate(2020, 5, 1);
                 tp.setCurrentHour(19);

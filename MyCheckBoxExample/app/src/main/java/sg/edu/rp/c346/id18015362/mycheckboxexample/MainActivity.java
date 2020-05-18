@@ -2,11 +2,13 @@ package sg.edu.rp.c346.id18015362.mycheckboxexample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     CheckBox cbEnabled;
@@ -33,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     tvShow.setText("The discount is not given");
                 }
+
+                Context context = getApplicationContext();
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, "Button Click", duration);
+                toast.show();
+
+
 
 
             }
